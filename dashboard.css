@@ -1,0 +1,724 @@
+/* dashboard.css */
+
+/* Local specific visuals only - Grid logic is now global in theme.css */
+
+/* Premium Modern Tank Visual */
+.tank-visual-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.modern-tank {
+    width: 250px;
+    height: 310px;
+    border-radius: 40px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.7);
+    position: relative;
+    border: 1.5px solid rgba(255, 255, 255, 1);
+    backdrop-filter: blur(20px);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.04),
+        inset 0 0 25px rgba(255, 255, 255, 0.5);
+    z-index: 10;
+}
+
+body.dark .modern-tank {
+    background: rgba(15, 23, 42, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.modern-water {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%);
+    transition: height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1;
+}
+
+/* Multi-layered Wave Animation */
+.water-wave {
+    position: absolute;
+    top: -45px;
+    left: -50%;
+    width: 200%;
+    height: 120px;
+    background: inherit;
+    border-radius: 38%;
+    opacity: 0.35;
+    animation: waveRotation 10s linear infinite;
+}
+
+.wave-1 {
+    opacity: 0.45;
+    animation-duration: 9s;
+    transform: rotate(0deg);
+}
+
+.wave-2 {
+    opacity: 0.25;
+    animation-duration: 13s;
+    top: -50px;
+    transform: rotate(120deg);
+}
+
+.wave-3 {
+    opacity: 0.15;
+    animation-duration: 7s;
+    top: -40px;
+    transform: rotate(240deg);
+}
+
+@keyframes waveRotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.modern-label {
+    position: absolute;
+    top: 55%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-weight: 900;
+    z-index: 20;
+    color: #1e1b4b;
+    font-size: 1.6rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+body.dark .modern-label {
+    background: rgba(15, 23, 42, 0.6);
+    color: #e0e7ff;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.modern-scale {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    padding: 25px 0;
+}
+
+.tick {
+    position: absolute;
+    left: 15px;
+    width: 35px;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 3px;
+}
+
+body.dark .tick {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.tick span {
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text);
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.6px;
+    opacity: 0.9;
+}
+
+/* Bubbles Animation */
+.bubbles-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -25px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    animation: floatUp var(--duration) ease-in infinite;
+    opacity: 0;
+}
+
+.bubble:nth-child(1) {
+    left: 15%;
+    width: 10px;
+    height: 10px;
+    --duration: 4s;
+}
+
+.bubble:nth-child(2) {
+    left: 40%;
+    width: 16px;
+    height: 16px;
+    --duration: 5s;
+    animation-delay: 1s;
+}
+
+.bubble:nth-child(3) {
+    left: 65%;
+    width: 8px;
+    height: 8px;
+    --duration: 3.5s;
+    animation-delay: 2s;
+}
+
+.bubble:nth-child(4) {
+    left: 80%;
+    width: 14px;
+    height: 14px;
+    --duration: 4.5s;
+    animation-delay: 0.5s;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateY(-300px) scale(1.6);
+        opacity: 0;
+    }
+}
+
+/* Metric Boxes Grid Redesign */
+.metric-box {
+    padding: 1.8rem;
+    border-radius: 28px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    border: 1px solid var(--border);
+margin: 10px;    
+}
+
+.metric-box:not(.no-hover):hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.metric-box.no-hover {
+    cursor: default;
+}
+
+body.dark .metric-box:not(.no-hover):hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Integrated States & Animations */
+.sensor-card {
+    position: relative;
+}
+
+.card-bg-animation {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.sensor-card.state-active .card-bg-animation {
+    opacity: 1;
+}
+
+.sensor-status-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+/* HOT STATE: Animated Heat Waves */
+.sensor-card.state-hot {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+}
+
+body.dark .sensor-card.state-hot {
+    background: linear-gradient(135deg, #431407 0%, #7c2d12 100%);
+}
+
+.state-hot .card-bg-animation::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle, rgba(234, 88, 12, 0.15) 0%, transparent 70%);
+    animation: pulseScale 4s ease-in-out infinite;
+}
+
+/* COLD STATE: Animated Snowflakes */
+.sensor-card.state-cold {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+body.dark .sensor-card.state-cold {
+    background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+}
+
+.state-cold .sensor-status-label {
+    color: #0ea5e9;
+}
+
+/* MOIST/WET STATE */
+.sensor-card.state-wet {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+body.dark .sensor-card.state-wet {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+}
+
+.state-wet .sensor-status-label {
+    color: #10b981;
+}
+
+/* DRY STATE */
+.sensor-card.state-dry {
+    background: linear-gradient(135deg, #fffaf5 0%, #fff1e5 100%);
+}
+
+body.dark .sensor-card.state-dry {
+    background: linear-gradient(135deg, #441a03 0%, #78350f 100%);
+}
+
+.state-dry .sensor-status-label {
+    color: #ea580c;
+}
+
+@keyframes pulseScale {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.3;
+    }
+}
+
+.fw-black {
+    font-weight: 950;
+}
+
+/* Theme-aware colored boxes */
+.box-orange {
+    color: #ea580c;
+    border-color: rgba(234, 88, 12, 0.15);
+}
+
+.box-blue {
+    color: #2563eb;
+    border-color: rgba(37, 99, 235, 0.15);
+}
+
+.box-green {
+    color: #059669;
+    border-color: rgba(5, 150, 105, 0.15);
+}
+
+.box-gray {
+    background-color: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    grid-column: span 3;
+}
+
+body.dark .box-orange {
+    color: #fb923c;
+}
+
+body.dark .box-blue {
+    color: #60a5fa;
+}
+
+body.dark .box-green {
+    color: #34d399;
+}
+
+@media (max-width: 576px) {
+    .box-gray {
+        grid-column: span 1;
+    }
+}
+
+/* Impact & Health Sections */
+.impact-list,
+.health-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.impact-card-item {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+body.dark .impact-card-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.impact-card-item:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+body.dark .impact-card-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.impact-icon-circle {
+    width: 70px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-radius: 14px;
+    margin-right: 1.2rem;
+    flex-shrink: 0;
+}
+
+.impact-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.impact-label {
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.7;
+    font-weight: 600;
+}
+
+.impact-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.health-item {
+    background: rgba(0, 0, 0, 0.02);
+    padding: 1.4rem;
+    border-radius: 22px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 0.6rem;
+}
+
+body.dark .health-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.health-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    opacity: 0.85;
+}
+
+.status-pill {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.status-optimal {
+    background-color: #10b981 !important;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.health-value {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.health-progress {
+    background-color: rgba(0, 0, 0, 0.05);
+    height: 12px !important;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+body.dark .health-progress {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Pump Status Enhancements */
+.pump-icon-ring {
+    width: 65px;
+    height: 65px;
+    border: 2.5px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+}
+
+.custom-switch-wrapper .form-check-input {
+    width: 4.4em !important;
+    height: 2.2em !important;
+    cursor: pointer;
+    background-color: #cbd5e1;
+    border-color: #94a3b8;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='white'/%3e%3c/svg%3e");
+}
+
+.custom-switch-wrapper .form-check-input:checked {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+}
+
+body.dark .custom-switch-wrapper .form-check-input {
+    background-color: #334155;
+    border-color: #475569;
+}
+
+body.dark .custom-switch-wrapper .form-check-input:checked {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+
+/* Dark mode button fix */
+body.dark button:not(.close-btn):not(.profile-btn) {
+    background: var(--accent) !important;
+    color: #0f172a !important;
+    font-weight: 800;
+}
+
+body.dark .theme-submenu button,
+body.dark .language-submenu button,
+body.dark .profile-dropdown button {
+    background: transparent !important;
+    color: var(--text) !important;
+}
+
+body.dark .theme-submenu button:hover,
+body.dark .language-submenu button:hover,
+body.dark .profile-dropdown button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+.icon{
+    width:50%;
+    height: 100px;
+}
+
+
+/* ===========================
+   Dynamic Sensor Card Colors
+   =========================== */
+
+.sensor-card{
+  --card-color: #6366f1;
+  --card-color-soft: rgba(99,102,241,0.15);
+
+  background: linear-gradient(
+      135deg,
+      var(--card-color-soft) 0%,
+      transparent 70%
+  );
+
+  border:1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+
+  transition: all .45s ease;
+}
+/* ----------------------------------------------------------------------------------------- */
+/* animated glow */
+.sensor-card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+
+  background: radial-gradient(
+      circle at 20% 20%,
+      var(--card-color-soft),
+      transparent 60%
+  );
+
+  opacity:.6;
+  z-index:0;
+  animation: cardGlow 6s linear infinite;
+}
+
+@keyframes cardGlow{
+  0%{transform:rotate(0deg) scale(1);}
+  50%{transform:rotate(180deg) scale(1.1);}
+  100%{transform:rotate(360deg) scale(1);}
+}
+
+/* content always above animation */
+.sensor-card > *{
+  position:relative;
+  z-index:2;
+}
+
+/* Temperature */
+#cardTemp{
+  --card-color:#f97316;
+  --card-color-soft:rgba(249,115,22,.25);
+}
+
+/* Humidity */
+#cardHum{
+  --card-color:#3b82f6;
+  --card-color-soft:rgba(59,130,246,.25);
+}
+
+/* Soil */
+#cardSoil{
+  --card-color:#22c55e;
+  --card-color-soft:rgba(34,197,94,.25);
+}
+
+/* Air */
+#cardAir{
+  --card-color:#06b6d4;
+  --card-color-soft:rgba(6,182,212,.25);
+}
+
+/* Pressure */
+#cardPressure{
+  --card-color:#a855f7;
+  --card-color-soft:rgba(168,85,247,.25);
+}
+
+.sensor-card:hover{
+  transform: translateY(-10px) scale(1.02);
+  box-shadow:
+      0 10px 25px rgba(0,0,0,.15),
+      0 0 25px var(--card-color-soft);
+}
+
+/* =============================
+   Professional Water Tank
+   ============================= */
+
+.modern-water{
+    background: linear-gradient(
+        180deg,
+        #7f9ad6 0%,
+        #5b78b5 60%,
+        #3c568d 100%
+    );
+}
+
+/* water shine effect */
+.modern-water::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    top:-60%;
+    left:-50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(255,255,255,0.2),
+        transparent 70%
+    );
+
+    animation: waterLight 8s linear infinite;
+}
+
+@keyframes waterLight{
+    0%{ transform: rotate(0deg);}
+    100%{ transform: rotate(360deg);}
+}
+
+/* =============================
+   Floating droplets
+   ============================= */
+
+.droplets{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:3;
+}
+
+.droplet{
+    position:absolute;
+    width:6px;
+    height:10px;
+    background:#5b78b5;
+    border-radius:50% 50% 60% 60%;
+    opacity:.8;
+
+    animation: dropletFloat linear infinite;
+}
+
+@keyframes dropletFloat{
+
+    0%{
+        transform:translateY(100px) scale(.8);
+        opacity:0;
+    }
+
+    30%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-250px) scale(1.1);
+        opacity:0;
+    }
+}
